@@ -1,0 +1,70 @@
+@use './colors';
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 62.5%;
+	font-family: 'Barlow', sans-serif;
+}
+
+body {
+	background-color: colors.$color-white;
+}
+
+header {
+	display: grid;
+	grid-template-columns: 1fr 50px 50px;
+	gap: 1em;
+	padding: 2em;
+	background-color: colors.$color-body;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	// backdrop-filter: blur(4.1px);
+
+	.hamburger {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5em;
+		width: 50px;
+		padding: 1em;
+		// background-color: black;
+
+		&-bar {
+			height: 0.2em;
+			width: 100%;
+			background-color: colors.$color-white;
+			border-radius: 8px;
+			background-color: colors.$color-shadow-theme;
+		}
+
+		&-bar:nth-child(2) {
+			width: 80%;
+		}
+	}
+
+	.bg-mode {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.add-task {
+		border: none;
+		// outline: none;
+		border-radius: 8px;
+		font-size: 1.5em;
+	}
+}
+
+header * {
+	border-radius: 8px;
+	transition: background-color 0.2s ease-in-out;
+	cursor: pointer;
+}
+
+header > *:hover {
+	background-color: colors.$color-lightgray;
+}
