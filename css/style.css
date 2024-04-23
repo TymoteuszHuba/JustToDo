@@ -42,6 +42,8 @@ header .bg-mode {
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
+  background-color: #ddd;
 }
 header .add-task {
   border: none;

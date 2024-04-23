@@ -49,6 +49,8 @@ header {
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		border: none;
+		background-color: colors.$color-body;
 	}
 
 	.add-task {
