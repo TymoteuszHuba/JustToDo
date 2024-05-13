@@ -6,37 +6,13 @@
   --clr-shadow: rgba(0, 0, 0, 0.6);
 }
 
-:root {
-  --clr-light-gray: #eee;
-  --clr-gray: #ddd;
-  --clr-white: #fff;
-  --clr-black: #000;
-  --clr-shadow: rgba(0, 0, 0, 0.6);
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-size: 62.5%;
-  font-family: "Barlow", sans-serif;
-}
-
-body {
-  background-color: var(--clr-white);
-}
-
 header {
   position: fixed;
   bottom: 0;
   left: 0;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  align-content: center;
-  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   gap: 1em;
   width: 100%;
   padding: 1em;
@@ -47,24 +23,27 @@ header {
 header .hamburger {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 0.5em;
+  width: 80px;
   padding: 0.7em 1em;
   border: none;
 }
 header .hamburger-bar {
-  height: 0.2em;
-  width: 80%;
+  height: 0.1em;
+  width: 100%;
   background-color: var(--clr-white);
   border-radius: 8px;
   background-color: var(--clr-shadow);
 }
 header .hamburger-bar:nth-child(2) {
-  width: 50%;
+  width: 60%;
 }
 header .header-btn {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100px;
   border: none;
   font-size: 1.7em;
 }
@@ -89,12 +68,35 @@ header > *:hover i {
   background-color: var(--clr-light-gray);
 }
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: "Barlow", sans-serif;
+}
+
+body {
+  background-color: var(--clr-white);
+}
+
+div {
+  background-color: black;
+  color: yellow;
+  font-size: 5rem;
+}
+
 nav {
   position: fixed;
   bottom: 0;
   left: 0;
-  height: 20%;
+  height: 40%;
   width: 100%;
+  border-top-left-radius: 2em;
+  border-top-right-radius: 2em;
   background-color: var(--clr-gray);
   z-index: 0;
-}/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=main.css.map */
