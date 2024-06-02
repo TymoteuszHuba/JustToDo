@@ -15,6 +15,10 @@
 }
 
 .hidden {
-    visibility: hidden;
-    opacity: 0;
+	visibility: hidden;
+	opacity: 0;
+}
+
+.rotate {
+	transform: rotate(180deg);
 }

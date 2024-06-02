@@ -57,7 +57,7 @@
   position: absolute;
   pointer-events: none;
   background-color: transparent;
-  transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 .header-btn:last-child {
   background-color: var(--clr-light-blue);
@@ -134,4 +134,8 @@ div {
 .hidden {
   visibility: hidden;
   opacity: 0;
+}
+
+.rotate {
+  transform: rotate(180deg);
 }/*# sourceMappingURL=main.css.map */

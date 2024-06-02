@@ -27,7 +27,7 @@ function createStructure() {
 			tag: 'button',
 			attributes: {class: 'header-btn', id: 'bg-mode-toggle'},
 			content:
-				'<i class="fa-solid fa-circle-half-stroke"></i>',
+				'<i class="fa-solid fa-circle-half-stroke bg-toggle-icon"></i>',
 		},
 		{
 			tag: 'button',

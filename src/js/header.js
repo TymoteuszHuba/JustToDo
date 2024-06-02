@@ -6,39 +6,38 @@ const header = document.querySelector('header');
 
 header.className = 'header';
 
+const toggleIcons = (btn, showActive) => {
+	console.log('button:', btn);
+	const originalIcon = btn.querySelector('.original-icon');
+	const activeIcon = btn.querySelector('.active-icon');
+
+	if (originalIcon && activeIcon) {
+		if (showActive) {
+			originalIcon.classList.add('hidden');
+			activeIcon.classList.remove('hidden');
+		} else {
+			originalIcon.classList.remove('hidden');
+			activeIcon.classList.add('hidden');
+		}
+	}
+};
+
 const headerControl = () => {
 	const headerBtns = document.querySelectorAll('.header-btn');
 	const headerBurgerItem = document.querySelector(
 		'.header-btn-burger:nth-child(2)'
 	);
+	const bgToggleIcon = document.querySelector('.bg-toggle-icon');
 	const headerBtnLast = document.querySelector('.header-btn:last-child');
-
-	const toggleIcons = (btn, showActive) => {
-		console.log('button:', btn);
-		const originalIcon = btn.querySelector('.original-icon');
-		const activeIcon = btn.querySelector('.active-icon');
-		console.log(originalIcon, activeIcon);
-
-		if (originalIcon && activeIcon) {
-			if (showActive) {
-				originalIcon.classList.add('hidden');
-				activeIcon.classList.remove('hidden');
-			} else {
-				originalIcon.classList.remove('hidden');
-				activeIcon.classList.add('hidden');
-			}
-		}
-	};
 
 	headerBtns.forEach((btn) => {
 		btn.addEventListener('click', (event) => {
 			const isActive = btn.classList.contains('header-btn-color');
 			const btnId = event.target.id;
 
-			
-
-			// different controls for bg mode toggle button
+			// controls for bg mode toggle button
 			if (btnId == 'bg-mode-toggle') {
+				bgToggleIcon.classList.toggle('rotate');
 				console.log(btnId);
 				return;
 			}
@@ -46,8 +45,6 @@ const headerControl = () => {
 			// Reset all buttons and headerBurgerItem immediately
 			headerBtns.forEach((btn) => {
 				btn.classList.remove('header-btn-color');
-				
-				
 				toggleIcons(btn, false);
 			});
 
@@ -61,7 +58,6 @@ const headerControl = () => {
 				btn.classList.add('header-btn-color');
 
 				toggleIcons(btn, true);
-				
 
 				if (btnId === 'header-tasks') {
 					headerBurgerItem.classList.add('header-burger-active');

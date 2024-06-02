@@ -49,18 +49,13 @@
 		pointer-events: none;
 	}
 
-	// &-btn:first-child {
-	// 	align-items: flex-start;
-	// 	gap: 0.2em;
-	// 	flex-direction: column;
-	// 	// padding: 0em 1.5em;
-	// }
 
 	i {
 		position: absolute;
 		pointer-events: none;
 		background-color: transparent;
-		transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+		transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out,
+			transform 0.3s ease-in-out;
 	}
 
 	&-btn:last-child {
@@ -82,9 +77,6 @@
 .header > *:hover {
 	background-color: var(--clr-light-gray);
 
-	// i {
-	// 	background-color: var(--clr-light-gray);
-	// }
 }
 
 .header > *:last-child:hover {
