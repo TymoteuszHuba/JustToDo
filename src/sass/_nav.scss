@@ -1,6 +1,6 @@
-nav {
+.nav {
 	position: fixed;
-	bottom: 0;
+	bottom: -40%;
 	left: 0;
 	// height: 100dvh;
 	height: 40%;
@@ -9,4 +9,7 @@ nav {
 	border-top-right-radius: 2em;
 	background-color: var(--clr-gray);
 	z-index: 0;
+	transition: bottom 0.3s ease-in-out;
 }
+
+

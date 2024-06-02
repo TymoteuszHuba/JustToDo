@@ -1,11 +1,7 @@
-header {
+.header {
 	position: fixed;
 	bottom: 0;
 	left: 0;
-	// display: grid;
-	// grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
-	// align-content: center;
-	// justify-content: center;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
@@ -17,58 +13,80 @@ header {
 	z-index: 1;
 	// backdrop-filter: blur(4.1px);
 
-	.hamburger {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 0.5em;
-		width: 80px;
-		padding: 0.7em 1em;
-		border: none;
-		// background-color: black;
-
-		&-bar {
-			height: 0.1em;
-			width: 100%;
-			background-color: var(--clr-white);
-			border-radius: 8px;
-			background-color: var(--clr-shadow);
-		}
-
-		&-bar:nth-child(2) {
-			width: 60%;
-		}
-	}
-
-	.header-btn {
+	&-btn {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		width: 100px;
+		padding: 0.6em 1em;
 		border: none;
-		font-size: 1.7em;
+		font-size: 1.9em;
+
+		&-burger {
+			height: 0.05em;
+			width: 100%;
+			max-width: 40px;
+			border-radius: 8px;
+			background-color: var(--clr-black);
+			transition: transform 0.3s ease-in-out;
+		}
+
+		&-burger:nth-child(2) {
+			width: 60%;
+			max-width: 20px;
+		}
 	}
 
-	.header-btn:last-child {
-		background-color: var(--clr-light-gray);
+	&-btn-container {
+		min-width: 30px;
+		max-width: 80px;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-start;
+		gap: 0.1em;
+		background-color: transparent;
+		pointer-events: none;
+	}
+
+	// &-btn:first-child {
+	// 	align-items: flex-start;
+	// 	gap: 0.2em;
+	// 	flex-direction: column;
+	// 	// padding: 0em 1.5em;
+	// }
+
+	i {
+		position: absolute;
+		pointer-events: none;
+		background-color: transparent;
+		transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	}
+
+	&-btn:last-child {
+		background-color: var(--clr-light-blue);
 
 		i {
-			background-color: var(--clr-light-gray);
+			color: var(--clr-light-gray);
 		}
 	}
 }
 
-header * {
+.header > * {
 	border-radius: 8px;
 	transition: background-color 0.2s ease-in-out;
 	cursor: pointer;
 	background-color: var(--clr-gray);
 }
 
-header > *:hover {
+.header > *:hover {
 	background-color: var(--clr-light-gray);
 
-	i {
-		background-color: var(--clr-light-gray);
-	}
+	// i {
+	// 	background-color: var(--clr-light-gray);
+	// }
+}
+
+.header > *:last-child:hover {
+	background-color: var(--clr-light-blue);
 }

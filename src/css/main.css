@@ -4,9 +4,10 @@
   --clr-white: #fff;
   --clr-black: #000;
   --clr-shadow: rgba(0, 0, 0, 0.6);
+  --clr-light-blue: #468d99;
 }
 
-header {
+.header {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -20,52 +21,64 @@ header {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   z-index: 1;
 }
-header .hamburger {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.5em;
-  width: 80px;
-  padding: 0.7em 1em;
-  border: none;
-}
-header .hamburger-bar {
-  height: 0.1em;
-  width: 100%;
-  background-color: var(--clr-white);
-  border-radius: 8px;
-  background-color: var(--clr-shadow);
-}
-header .hamburger-bar:nth-child(2) {
-  width: 60%;
-}
-header .header-btn {
+.header-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100px;
+  padding: 0.6em 1em;
   border: none;
-  font-size: 1.7em;
+  font-size: 1.9em;
 }
-header .header-btn:last-child {
-  background-color: var(--clr-light-gray);
+.header-btn-burger {
+  height: 0.05em;
+  width: 100%;
+  max-width: 40px;
+  border-radius: 8px;
+  background-color: var(--clr-black);
+  transition: transform 0.3s ease-in-out;
 }
-header .header-btn:last-child i {
-  background-color: var(--clr-light-gray);
+.header-btn-burger:nth-child(2) {
+  width: 60%;
+  max-width: 20px;
+}
+.header-btn-container {
+  min-width: 30px;
+  max-width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.1em;
+  background-color: transparent;
+  pointer-events: none;
+}
+.header i {
+  position: absolute;
+  pointer-events: none;
+  background-color: transparent;
+  transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+.header-btn:last-child {
+  background-color: var(--clr-light-blue);
+}
+.header-btn:last-child i {
+  color: var(--clr-light-gray);
 }
 
-header * {
+.header > * {
   border-radius: 8px;
   transition: background-color 0.2s ease-in-out;
   cursor: pointer;
   background-color: var(--clr-gray);
 }
 
-header > *:hover {
+.header > *:hover {
   background-color: var(--clr-light-gray);
 }
-header > *:hover i {
-  background-color: var(--clr-light-gray);
+
+.header > *:last-child:hover {
+  background-color: var(--clr-light-blue);
 }
 
 * {
@@ -89,9 +102,9 @@ div {
   font-size: 5rem;
 }
 
-nav {
+.nav {
   position: fixed;
-  bottom: 0;
+  bottom: -40%;
   left: 0;
   height: 40%;
   width: 100%;
@@ -99,4 +112,26 @@ nav {
   border-top-right-radius: 2em;
   background-color: var(--clr-gray);
   z-index: 0;
+  transition: bottom 0.3s ease-in-out;
+}
+
+.nav-active {
+  bottom: 0;
+}
+
+.header-burger-active {
+  transform: translateX(65%); /* Adjust as needed */
+}
+
+.header-btn-color {
+  background-color: var(--clr-light-gray);
+}
+
+.header-btn-last-color {
+  background-color: var(--clr-gray);
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
 }/*# sourceMappingURL=main.css.map */

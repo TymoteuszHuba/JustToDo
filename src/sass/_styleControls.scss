@@ -1,0 +1,20 @@
+.nav-active {
+	bottom: 0;
+}
+
+.header-burger-active {
+	transform: translateX(65%); /* Adjust as needed */
+}
+
+.header-btn-color {
+	background-color: var(--clr-light-gray);
+}
+
+.header-btn-last-color {
+	background-color: var(--clr-gray);
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+}
