@@ -38,17 +38,11 @@ const headerControl = () => {
 			// controls for bg mode toggle button
 			if (btnId == 'bg-mode-toggle') {
 				bgToggleIcon.classList.toggle('rotate');
-				console.log(btnId);
 				return;
 			}
 
 			// Reset all buttons and headerBurgerItem immediately
-			headerBtns.forEach((btn) => {
-				btn.classList.remove('header-btn-color');
-				toggleIcons(btn, false);
-			});
-
-			headerBurgerItem.classList.remove('header-burger-active');
+			resetButtons(headerBtns, headerBurgerItem);
 
 			if (isActive) {
 				nav.classList.remove('nav-active');
@@ -59,13 +53,7 @@ const headerControl = () => {
 
 				toggleIcons(btn, true);
 
-				if (btnId === 'header-tasks') {
-					headerBurgerItem.classList.add('header-burger-active');
-					console.log(btnId);
-				} else if (btnId == 'header-task-lists') {
-					console.log(btnId);
-				} else if (btnId == 'add-task') {
-				}
+				handleSpecialCases(btnId, headerBurgerItem);
 
 				setTimeout(() => {
 					nav.classList.add('nav-active');
@@ -73,6 +61,26 @@ const headerControl = () => {
 			}
 		});
 	});
+};
+
+// function responsible for reset values
+const resetButtons = (headerBtns, headerBurgerItem) => {
+	headerBtns.forEach((btn) => {
+		btn.classList.remove('header-btn-color');
+		toggleIcons(btn, false);
+	});
+	headerBurgerItem.classList.remove('header-burger-active');
+};
+
+// function to control special cases depends of button id
+const handleSpecialCases = (btnId, headerBurgerItem) => {
+	if (btnId == 'header-tasks') {
+		headerBurgerItem.classList.add('header-burger-active');
+	} else if (btnId == 'header-task-lists') {
+		console.log(btnId);
+	} else if (btnId == 'add-task') {
+		console.log(btnId);
+	}
 };
 
 export {header, headerControl};

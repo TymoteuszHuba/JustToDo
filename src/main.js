@@ -12,9 +12,7 @@ function initialize() {
 }
 
 //initialize();
-document.addEventListener('DOMContentLoaded', (event) => {
-	initialize();
-});
+document.addEventListener('DOMContentLoaded', initialize);
 
 // function component() {
 // 	const element = document.createElement('div');

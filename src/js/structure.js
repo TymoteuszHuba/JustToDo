@@ -4,7 +4,7 @@ import {createElement, createElements, addSeveral} from './functions';
 import {first} from 'lodash';
 
 // main function which keep all content to create structure
-function createStructure() {
+const createStructure = () => {
 	// cereate an array including header elements
 	const headerElements = [
 		{
@@ -26,8 +26,7 @@ function createStructure() {
 		{
 			tag: 'button',
 			attributes: {class: 'header-btn', id: 'bg-mode-toggle'},
-			content:
-				'<i class="fa-solid fa-circle-half-stroke bg-toggle-icon"></i>',
+			content: '<i class="fa-solid fa-circle-half-stroke bg-toggle-icon"></i>',
 		},
 		{
 			tag: 'button',
@@ -35,7 +34,6 @@ function createStructure() {
 			content: '<i class="fa-solid fa-plus"></i>',
 		},
 	];
-
 
 	const headerBtnContainer = createElement('div', {
 		class: 'header-btn-container',
@@ -63,6 +61,6 @@ function createStructure() {
 	firstElHeader.appendChild(headerBtnContainer);
 	// functions which add a several elements into first element of header button
 	addSeveral(createElements(headerBurgerElements), headerBtnContainer);
-}
+};
 
 export {createStructure};
