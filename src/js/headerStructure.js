@@ -1,10 +1,10 @@
 // import all necessary modules
-import {header} from './header';
+// import {header} from './header';
 import {createElement, createElements, addSeveral} from './functions';
 import {first} from 'lodash';
 
 // main function which keep all content to create structure
-const createStructure = () => {
+const headerStructure = () => {
 	// cereate an array including header elements
 	const headerElements = [
 		{
@@ -35,10 +35,12 @@ const createStructure = () => {
 		},
 	];
 
+	// create container for first button in header
 	const headerBtnContainer = createElement('div', {
 		class: 'header-btn-container',
 	});
 
+	// create elements for the first button from header
 	const headerBurgerElements = [
 		{
 			tag: 'div',
@@ -54,7 +56,7 @@ const createStructure = () => {
 		},
 	];
 	// function which add several elements (foreach) into header
-	addSeveral(createElements(headerElements), header);
+	addSeveral(createElements(headerElements), document.querySelector('header'));
 	// select first element of header
 	const firstElHeader = document.querySelector('.header-btn:first-child');
 
@@ -63,4 +65,5 @@ const createStructure = () => {
 	addSeveral(createElements(headerBurgerElements), headerBtnContainer);
 };
 
-export {createStructure};
+
+export {headerStructure};

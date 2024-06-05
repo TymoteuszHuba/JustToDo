@@ -1,11 +1,13 @@
 import {toggleF} from './functions';
-import {nav} from './nav';
+import {nav} from './navStructure';
+import {navContents, createNavContent} from './navStructure';
 
 const header = document.querySelector('header');
 // let headerBtns;
 
 header.className = 'header';
 
+// function responsible for toggle icons on click
 const toggleIcons = (btn, showActive) => {
 	console.log('button:', btn);
 	const originalIcon = btn.querySelector('.original-icon');
@@ -22,6 +24,7 @@ const toggleIcons = (btn, showActive) => {
 	}
 };
 
+// main function responsible for header control
 const headerControl = () => {
 	const headerBtns = document.querySelectorAll('.header-btn');
 	const headerBurgerItem = document.querySelector(
@@ -55,6 +58,10 @@ const headerControl = () => {
 
 				handleSpecialCases(btnId, headerBurgerItem);
 
+				const content = navContents[btn.id];
+				if (content) {
+					createNavContent(content, nav, headerBtns, headerBurgerItem);
+				}
 				setTimeout(() => {
 					nav.classList.add('nav-active');
 				}, 200);
@@ -83,4 +90,4 @@ const handleSpecialCases = (btnId, headerBurgerItem) => {
 	}
 };
 
-export {header, headerControl};
+export {header, headerControl, resetButtons};

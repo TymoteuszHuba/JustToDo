@@ -2,12 +2,12 @@ import _, {get} from 'lodash';
 import './sass/main.scss';
 // import {header, nav, main, footer} from './js/structure';
 // import {createElement} from './js/functions';
-import {createStructure} from './js/structure';
-import {headerControl} from './js/header';
+import {headerStructure} from './js/headerStructure';
+import {headerControl} from './js/headerControls';
 
 // INITIAL
 function initialize() {
-	createStructure();
+	headerStructure();
 	headerControl();
 }
 

@@ -12,13 +12,10 @@ const createElement = (el, attributes = {}, contnet = '') => {
 
 // function to create several elements with optional atributes and content
 const createElements = (elementsArray) => {
-	const createdElements = [];
-	elementsArray.forEach((config) => {
+	return elementsArray.map((config) => {
 		const {tag, attributes, content} = config;
-		const newElement = createElement(tag, attributes, content);
-		createdElements.push(newElement);
+		return createElement(tag, attributes, content);
 	});
-	return createdElements;
 };
 
 // add several items into parent
@@ -32,7 +29,5 @@ const addSeveral = (elements, parent) => {
 const toggleF = (itemName, className) => {
 	itemName.classList.toggle(className);
 };
-
-
 
 export {createElement, createElements, addSeveral, toggleF};
