@@ -50,11 +50,9 @@ const createNavContent = (content, nav, headerBtns, headerBurgerItem) => {
 			resetButtons(headerBtns, headerBurgerItem);
 		});
 
-		setTimeout(() => {
-			// add a tag and li element into a ul list
-			li.appendChild(a);
-			ul.appendChild(li);
-		}, 100);
+		// add a tag and li element into a ul list
+		li.appendChild(a);
+		ul.appendChild(li);
 	});
 
 	// add a ul list into main container
@@ -67,4 +65,16 @@ const showContent = (content) => {
 	mainContent.innerHTML = `<p>${content}</p>`;
 };
 
-export {nav, navContents, createNavContent, showContent};
+// function which is responsible which take arguments nav, content, headerBtns, headerBurgerItem and including onTransitionEnd function
+const handleNavTransition = (nav, content, headerBtns, headerBurgerItem) => {
+	// function which ivoke a function createNewContent, adding class for nav (nav-active) and remove listener when transition on nav will end
+	const onTransitionEnd = () => {
+		createNavContent(content, headerBtns, headerBurgerItem);
+		nav.classList.add('nav-active');
+		nav.removeEventListener('transitionend', onTransitionEnd);
+	};
+
+	nav.addEventListener('transitionend', onTransitionEnd);
+};
+
+export {nav, navContents, createNavContent, showContent, handleNavTransition};

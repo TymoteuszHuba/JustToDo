@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   addSeveral: () => (/* binding */ addSeveral),
 /* harmony export */   createElement: () => (/* binding */ createElement),
 /* harmony export */   createElements: () => (/* binding */ createElements),
-/* harmony export */   selectAll: () => (/* binding */ selectAll)
+/* harmony export */   toggleF: () => (/* binding */ toggleF)
 /* harmony export */ });
 // UNIVERSAL FUNCTIONS
 
@@ -31,15 +31,12 @@ var createElement = function createElement(el) {
 
 // function to create several elements with optional atributes and content
 var createElements = function createElements(elementsArray) {
-  var createdElements = [];
-  elementsArray.forEach(function (config) {
+  return elementsArray.map(function (config) {
     var tag = config.tag,
       attributes = config.attributes,
       content = config.content;
-    var newElement = createElement(tag, attributes, content);
-    createdElements.push(newElement);
+    return createElement(tag, attributes, content);
   });
-  return createdElements;
 };
 
 // add several items into parent
@@ -49,117 +46,309 @@ var addSeveral = function addSeveral(elements, parent) {
   });
 };
 
-// Function which take a several elements form website
-var selectAll = function selectAll(selector, variable) {
-  variable = document.querySelectorAll(selector);
+// universal function responsible for toggle a class
+var toggleF = function toggleF(itemName, className) {
+  itemName.classList.toggle(className);
 };
 
 
 /***/ }),
 
-/***/ "./src/js/querySelectors.js":
+/***/ "./src/js/headerControls.js":
 /*!**********************************!*\
-  !*** ./src/js/querySelectors.js ***!
+  !*** ./src/js/headerControls.js ***!
   \**********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   firstElHeader: () => (/* binding */ firstElHeader),
-/* harmony export */   footer: () => (/* binding */ footer),
 /* harmony export */   header: () => (/* binding */ header),
-/* harmony export */   main: () => (/* binding */ main),
-/* harmony export */   nav: () => (/* binding */ nav)
+/* harmony export */   headerControl: () => (/* binding */ headerControl),
+/* harmony export */   resetButtons: () => (/* binding */ resetButtons)
 /* harmony export */ });
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./functions */ "./src/js/functions.js");
+/* harmony import */ var _navStructure__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./navStructure */ "./src/js/navStructure.js");
+
+
+
 var header = document.querySelector('header');
-var nav = document.querySelector('nav');
-var main = document.querySelector('main');
-var footer = document.querySelector('footer');
-var firstElHeader;
-document.addEventListener('DOMContentLoaded', function () {
-  firstElHeader = document.querySelector('.header-btn:first-child');
-});
+// let headerBtns;
+
+header.className = 'header';
+
+// function responsible for toggle icons on click
+var toggleIcons = function toggleIcons(btn, showActive) {
+  console.log('button:', btn);
+  var originalIcon = btn.querySelector('.original-icon');
+  var activeIcon = btn.querySelector('.active-icon');
+  if (originalIcon && activeIcon) {
+    if (showActive) {
+      originalIcon.classList.add('hidden');
+      activeIcon.classList.remove('hidden');
+    } else {
+      originalIcon.classList.remove('hidden');
+      activeIcon.classList.add('hidden');
+    }
+  }
+};
+
+// main function responsible for header control
+var headerControl = function headerControl() {
+  var headerBtns = document.querySelectorAll('.header-btn');
+  var headerBurgerItem = document.querySelector('.header-btn-burger:nth-child(2)');
+  var bgToggleIcon = document.querySelector('.bg-toggle-icon');
+  var headerBtnLast = document.querySelector('.header-btn:last-child');
+  headerBtns.forEach(function (btn) {
+    btn.addEventListener('click', function (event) {
+      var isActive = btn.classList.contains('header-btn-color');
+      var btnId = event.target.id;
+
+      // controls for bg mode toggle button
+      if (btnId == 'bg-mode-toggle') {
+        bgToggleIcon.classList.toggle('rotate');
+        return;
+      }
+
+      // Reset all buttons and headerBurgerItem immediately
+      resetButtons(headerBtns, headerBurgerItem);
+      if (isActive) {
+        _navStructure__WEBPACK_IMPORTED_MODULE_1__.nav.classList.remove('nav-active');
+      } else {
+        _navStructure__WEBPACK_IMPORTED_MODULE_1__.nav.classList.remove('nav-active');
+        btn.classList.add('header-btn-color');
+        toggleIcons(btn, true);
+        handleSpecialCases(btnId, headerBurgerItem);
+        var content = _navStructure__WEBPACK_IMPORTED_MODULE_1__.navContents[btn.id];
+        if (content) {
+          (0,_navStructure__WEBPACK_IMPORTED_MODULE_1__.createNavContent)(content, _navStructure__WEBPACK_IMPORTED_MODULE_1__.nav, headerBtns, headerBurgerItem);
+        }
+        setTimeout(function () {
+          _navStructure__WEBPACK_IMPORTED_MODULE_1__.nav.classList.add('nav-active');
+        }, 200);
+      }
+    });
+  });
+};
+
+// function responsible for reset values
+var resetButtons = function resetButtons(headerBtns, headerBurgerItem) {
+  headerBtns.forEach(function (btn) {
+    btn.classList.remove('header-btn-color');
+    toggleIcons(btn, false);
+  });
+  headerBurgerItem.classList.remove('header-burger-active');
+};
+
+// function to control special cases depends of button id
+var handleSpecialCases = function handleSpecialCases(btnId, headerBurgerItem) {
+  if (btnId == 'header-tasks') {
+    headerBurgerItem.classList.add('header-burger-active');
+  } else if (btnId == 'header-task-lists') {
+    console.log(btnId);
+  } else if (btnId == 'add-task') {
+    console.log(btnId);
+  }
+};
 
 
 /***/ }),
 
-/***/ "./src/js/structure.js":
-/*!*****************************!*\
-  !*** ./src/js/structure.js ***!
-  \*****************************/
+/***/ "./src/js/headerStructure.js":
+/*!***********************************!*\
+  !*** ./src/js/headerStructure.js ***!
+  \***********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _querySelectors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./querySelectors */ "./src/js/querySelectors.js");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./functions */ "./src/js/functions.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   headerStructure: () => (/* binding */ headerStructure)
+/* harmony export */ });
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./functions */ "./src/js/functions.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+// import all necessary modules
+// import {header} from './header';
 
 
 
+// main function which keep all content to create structure
+var headerStructure = function headerStructure() {
+  // cereate an array including header elements
+  var headerElements = [{
+    tag: 'button',
+    attributes: {
+      "class": 'header-btn',
+      id: 'header-tasks'
+    }
+  }, {
+    tag: 'button',
+    attributes: {
+      "class": 'header-btn',
+      id: 'header-task-lists'
+    },
+    content: '<i class="fa-solid fa-list-ul original-icon"></i> <i class="fa-solid fa-list-check active-icon hidden"></i>'
+  }, {
+    tag: 'button',
+    attributes: {
+      "class": 'header-btn',
+      id: 'header-task-calendar'
+    },
+    content: '<i class="fa-regular fa-calendar original-icon"></i> <i class="fa-regular fa-calendar-days active-icon hidden"></i>'
+  }, {
+    tag: 'button',
+    attributes: {
+      "class": 'header-btn',
+      id: 'bg-mode-toggle'
+    },
+    content: '<i class="fa-solid fa-circle-half-stroke bg-toggle-icon"></i>'
+  }, {
+    tag: 'button',
+    attributes: {
+      "class": 'header-btn',
+      id: 'add-task'
+    },
+    content: '<i class="fa-solid fa-plus"></i>'
+  }];
 
-// STRUCTURE TO CREATE STATIC ELEMENTS OF WEBSITE
-_querySelectors__WEBPACK_IMPORTED_MODULE_0__.header.className = 'header';
+  // create container for first button in header
+  var headerBtnContainer = (0,_functions__WEBPACK_IMPORTED_MODULE_0__.createElement)('div', {
+    "class": 'header-btn-container'
+  });
 
-// cereate an array including header elements
-var headerElements = [{
-  tag: 'button',
-  attributes: {
-    "class": 'header-btn',
-    id: 'nav-tasks'
-  }
-}, {
-  tag: 'button',
-  attributes: {
-    "class": 'header-btn',
-    id: 'nav-task-lists'
-  },
-  content: '<i class="fa-solid fa-list-check"></i>'
-}, {
-  tag: 'button',
-  attributes: {
-    "class": 'header-btn',
-    id: 'nav-task-calendar'
-  },
-  content: '<i class="fa-regular fa-calendar"></i>'
-}, {
-  tag: 'button',
-  attributes: {
-    "class": 'header-btn',
-    id: 'bg-mode-toggle'
-  },
-  content: '<i class="fa-solid fa-circle-half-stroke"></i>'
-}, {
-  tag: 'button',
-  attributes: {
-    "class": 'header-btn',
-    id: 'add-task'
-  },
-  content: '<i class="fa-solid fa-plus"></i>'
-}];
+  // create elements for the first button from header
+  var headerBurgerElements = [{
+    tag: 'div',
+    attributes: {
+      "class": 'header-btn-burger'
+    }
+  }, {
+    tag: 'div',
+    attributes: {
+      "class": 'header-btn-burger'
+    }
+  }, {
+    tag: 'div',
+    attributes: {
+      "class": 'header-btn-burger'
+    }
+  }];
+  // function which add several elements (foreach) into header
+  (0,_functions__WEBPACK_IMPORTED_MODULE_0__.addSeveral)((0,_functions__WEBPACK_IMPORTED_MODULE_0__.createElements)(headerElements), document.querySelector('header'));
+  // select first element of header
+  var firstElHeader = document.querySelector('.header-btn:first-child');
+  firstElHeader.appendChild(headerBtnContainer);
+  // functions which add a several elements into first element of header button
+  (0,_functions__WEBPACK_IMPORTED_MODULE_0__.addSeveral)((0,_functions__WEBPACK_IMPORTED_MODULE_0__.createElements)(headerBurgerElements), headerBtnContainer);
+};
 
-// function which add several elements (foreach) into header
-(0,_functions__WEBPACK_IMPORTED_MODULE_1__.addSeveral)((0,_functions__WEBPACK_IMPORTED_MODULE_1__.createElements)(headerElements), _querySelectors__WEBPACK_IMPORTED_MODULE_0__.header);
-var headerBurgerElements = [{
-  tag: 'div',
-  attributes: {
-    "class": 'header-btn-burger'
-  }
-}, {
-  tag: 'div',
-  attributes: {
-    "class": 'header-btn-burger'
-  }
-}, {
-  tag: 'div',
-  attributes: {
-    "class": 'header-btn-burger'
-  }
-}];
-var headerBurger = (0,_functions__WEBPACK_IMPORTED_MODULE_1__.createElements)(headerBurgerElements);
-(0,_functions__WEBPACK_IMPORTED_MODULE_1__.addSeveral)(headerBurger, _querySelectors__WEBPACK_IMPORTED_MODULE_0__.firstElHeader);
+
+/***/ }),
+
+/***/ "./src/js/navStructure.js":
+/*!********************************!*\
+  !*** ./src/js/navStructure.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createNavContent: () => (/* binding */ createNavContent),
+/* harmony export */   nav: () => (/* binding */ nav),
+/* harmony export */   navContents: () => (/* binding */ navContents),
+/* harmony export */   showContent: () => (/* binding */ showContent)
+/* harmony export */ });
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./functions */ "./src/js/functions.js");
+/* harmony import */ var _headerControls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./headerControls */ "./src/js/headerControls.js");
+
+
+var nav = document.querySelector('nav');
+nav.classList.add('nav');
+var navContainer = (0,_functions__WEBPACK_IMPORTED_MODULE_0__.createElement)('div', {
+  "class": 'nav-container'
+});
+nav.appendChild(navContainer);
+
+// function which add elements into navigation based on button which will chose user
+var navContents = {
+  'header-tasks': [{
+    id: 'header-tasks-today',
+    text: 'Today Tasks'
+  }, {
+    id: 'header-tasks-all',
+    text: 'All Tasks'
+  }, {
+    id: 'header-tasks-important',
+    text: 'Important Tasks'
+  }, {
+    id: 'header-tasks-completed',
+    text: 'Completed Tasks'
+  }],
+  'header-task-lists': [{
+    id: 'list1',
+    text: 'List 1'
+  }, {
+    id: 'list2',
+    text: 'List 2'
+  }, {
+    id: 'list3',
+    text: 'List 3'
+  }],
+  'header-task-calendar': [{
+    id: 'calendar1',
+    text: 'Calendar Event 1'
+  }, {
+    id: 'calendar2',
+    text: 'Calendar Event 2'
+  }, {
+    id: 'calendar3',
+    text: 'Calendar Event 3'
+  }],
+  'add-task': []
+};
+
+// function which creates a navigation content by ul list with <a> tags
+var createNavContent = function createNavContent(content, nav, headerBtns, headerBurgerItem) {
+  // clear previous content
+  navContainer.innerHTML = '';
+
+  // creating ul element
+  var ul = document.createElement('ul');
+
+  // creating li with a tag elements
+  content.forEach(function (item) {
+    var li = (0,_functions__WEBPACK_IMPORTED_MODULE_0__.createElement)('li');
+    var a = (0,_functions__WEBPACK_IMPORTED_MODULE_0__.createElement)('a', {
+      href: '#',
+      id: item.id
+    }, item.text);
+
+    // set listener on a tag to change the main content
+    a.addEventListener('click', function (event) {
+      event.preventDefault();
+      showContent(item.text);
+      nav.classList.remove('nav-active');
+      (0,_headerControls__WEBPACK_IMPORTED_MODULE_1__.resetButtons)(headerBtns, headerBurgerItem);
+    });
+    setTimeout(function () {
+      // add a tag and li element into a ul list
+      li.appendChild(a);
+      ul.appendChild(li);
+    }, 100);
+  });
+
+  // add a ul list into main container
+  navContainer.appendChild(ul);
+};
+
+// function responsible for showing main content depends of a tag choose
+var showContent = function showContent(content) {
+  var mainContent = document.querySelector('main');
+  mainContent.innerHTML = "<p>".concat(content, "</p>");
+};
+
 
 /***/ }),
 
@@ -189,6 +378,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `:root {
   --clr-white: #fff;
   --clr-black: #000;
   --clr-shadow: rgba(0, 0, 0, 0.6);
+  --clr-light-blue: #468d99;
 }
 
 .header {
@@ -212,24 +402,42 @@ ___CSS_LOADER_EXPORT___.push([module.id, `:root {
   width: 100px;
   padding: 0.6em 1em;
   border: none;
-  font-size: 1.7em;
+  font-size: 1.9em;
 }
 .header-btn-burger {
-  height: 0.07em;
+  height: 0.05em;
   width: 100%;
+  max-width: 40px;
   border-radius: 8px;
   background-color: var(--clr-black);
+  transition: transform 0.3s ease-in-out;
 }
 .header-btn-burger:nth-child(2) {
   width: 60%;
+  max-width: 20px;
 }
-.header-btn:first-child {
-  align-items: flex-start;
-  gap: 0.1em;
+.header-btn-container {
+  min-width: 30px;
+  max-width: 80px;
+  display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.1em;
+  background-color: transparent;
+  pointer-events: none;
+}
+.header i {
+  position: absolute;
+  pointer-events: none;
+  background-color: transparent;
+  transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 .header-btn:last-child {
-  background-color: var(--clr-light-gray);
+  background-color: var(--clr-light-blue);
+}
+.header-btn:last-child i {
+  color: var(--clr-light-gray);
 }
 
 .header > * {
@@ -242,8 +450,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `:root {
 .header > *:hover {
   background-color: var(--clr-light-gray);
 }
-.header > *:hover i {
-  background-color: var(--clr-light-gray);
+
+.header > *:last-child:hover {
+  background-color: var(--clr-light-blue);
 }
 
 * {
@@ -267,9 +476,9 @@ div {
   font-size: 5rem;
 }
 
-nav {
+.nav {
   position: fixed;
-  bottom: 0;
+  bottom: -40%;
   left: 0;
   height: 40%;
   width: 100%;
@@ -277,7 +486,33 @@ nav {
   border-top-right-radius: 2em;
   background-color: var(--clr-gray);
   z-index: 0;
-}`, "",{"version":3,"sources":["webpack://./src/sass/_colors.scss","webpack://./src/sass/main.scss","webpack://./src/sass/_header.scss","webpack://./src/sass/_base.scss","webpack://./src/sass/_nav.scss"],"names":[],"mappings":"AACA;EACC,sBAAA;EACG,gBAAA;EACH,iBAAA;EACG,iBAAA;EACA,gCAAA;ACAJ;;ACNA;EACC,eAAA;EACA,SAAA;EACA,OAAA;EACA,aAAA;EACA,mBAAA;EACA,6BAAA;EACA,QAAA;EACA,WAAA;EACA,YAAA;EACA,iCAAA;EACA,yCAAA;EACA,UAAA;ADSD;ACNC;EACC,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,YAAA;EACA,kBAAA;EACA,YAAA;EACA,gBAAA;ADQF;ACNE;EACC,cAAA;EACA,WAAA;EACA,kBAAA;EACA,kCAAA;ADQH;ACLE;EACC,UAAA;ADOH;ACHC;EACC,uBAAA;EACA,UAAA;EACA,sBAAA;ADKF;ACDC;EACC,uCAAA;ADGF;;ACKA;EACC,kBAAA;EACA,6CAAA;EACA,eAAA;EACA,iCAAA;ADFD;;ACKA;EACC,uCAAA;ADFD;ACIC;EACC,uCAAA;ADFF;;AE7DA;EACC,sBAAA;EACA,SAAA;EACA,UAAA;AFgED;;AE7DA;EACC,gBAAA;EACA,iCAAA;AFgED;;AE7DA;EACC,kCAAA;AFgED;;AE7DA;EACC,uBAAA;EACA,aAAA;EACA,eAAA;AFgED;;AGlFA;EACC,eAAA;EACA,SAAA;EACA,OAAA;EAEA,WAAA;EACA,WAAA;EACA,2BAAA;EACA,4BAAA;EACA,iCAAA;EACA,UAAA;AHoFD","sourcesContent":["\n:root {\n\t--clr-light-gray: #eee;\n    --clr-gray: #ddd;\n\t--clr-white: #fff;\n    --clr-black: #000;\n    --clr-shadow: rgba(0, 0, 0, 0.6);\n}\n",":root {\n  --clr-light-gray: #eee;\n  --clr-gray: #ddd;\n  --clr-white: #fff;\n  --clr-black: #000;\n  --clr-shadow: rgba(0, 0, 0, 0.6);\n}\n\n.header {\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-around;\n  gap: 1em;\n  width: 100%;\n  padding: 1em;\n  background-color: var(--clr-gray);\n  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);\n  z-index: 1;\n}\n.header-btn {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100px;\n  padding: 0.6em 1em;\n  border: none;\n  font-size: 1.7em;\n}\n.header-btn-burger {\n  height: 0.07em;\n  width: 100%;\n  border-radius: 8px;\n  background-color: var(--clr-black);\n}\n.header-btn-burger:nth-child(2) {\n  width: 60%;\n}\n.header-btn:first-child {\n  align-items: flex-start;\n  gap: 0.1em;\n  flex-direction: column;\n}\n.header-btn:last-child {\n  background-color: var(--clr-light-gray);\n}\n\n.header > * {\n  border-radius: 8px;\n  transition: background-color 0.2s ease-in-out;\n  cursor: pointer;\n  background-color: var(--clr-gray);\n}\n\n.header > *:hover {\n  background-color: var(--clr-light-gray);\n}\n.header > *:hover i {\n  background-color: var(--clr-light-gray);\n}\n\n* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n\nhtml {\n  font-size: 62.5%;\n  font-family: \"Barlow\", sans-serif;\n}\n\nbody {\n  background-color: var(--clr-white);\n}\n\ndiv {\n  background-color: black;\n  color: yellow;\n  font-size: 5rem;\n}\n\nnav {\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  height: 40%;\n  width: 100%;\n  border-top-left-radius: 2em;\n  border-top-right-radius: 2em;\n  background-color: var(--clr-gray);\n  z-index: 0;\n}",".header {\n\tposition: fixed;\n\tbottom: 0;\n\tleft: 0;\n\tdisplay: flex;\n\tflex-direction: row;\n\tjustify-content: space-around;\n\tgap: 1em;\n\twidth: 100%;\n\tpadding: 1em;\n\tbackground-color: var(--clr-gray);\n\tbox-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);\n\tz-index: 1;\n\t// backdrop-filter: blur(4.1px);\n\n\t&-btn {\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\t\twidth: 100px;\n\t\tpadding: 0.6em 1em;\n\t\tborder: none;\n\t\tfont-size: 1.7em;\n\n\t\t&-burger {\n\t\t\theight: 0.07em;\n\t\t\twidth: 100%;\n\t\t\tborder-radius: 8px;\n\t\t\tbackground-color: var(--clr-black);\n\t\t}\n\n\t\t&-burger:nth-child(2) {\n\t\t\twidth: 60%;\n\t\t}\n\t}\n\n\t&-btn:first-child {\n\t\talign-items: flex-start;\n\t\tgap: 0.1em;\n\t\tflex-direction: column;\n\t\t// padding: 0em 1.5em;\n\t}\n\n\t&-btn:last-child {\n\t\tbackground-color: var(--clr-light-gray);\n\n\t\t// i {\n\t\t// \tbackground-color: var(--clr-light-gray);\n\t\t// }\n\t}\n}\n\n.header > * {\n\tborder-radius: 8px;\n\ttransition: background-color 0.2s ease-in-out;\n\tcursor: pointer;\n\tbackground-color: var(--clr-gray);\n}\n\n.header > *:hover {\n\tbackground-color: var(--clr-light-gray);\n\n\ti {\n\t\tbackground-color: var(--clr-light-gray);\n\t}\n}\n","* {\n\tbox-sizing: border-box;\n\tmargin: 0;\n\tpadding: 0;\n}\n\nhtml {\n\tfont-size: 62.5%;\n\tfont-family: 'Barlow', sans-serif;\n}\n\nbody {\n\tbackground-color: var(--clr-white);\n}\n\ndiv {\n\tbackground-color: black;\n\tcolor: yellow;\n\tfont-size: 5rem;\n}\n","nav {\n\tposition: fixed;\n\tbottom: 0;\n\tleft: 0;\n\t// height: 100dvh;\n\theight: 40%;\n\twidth: 100%;\n\tborder-top-left-radius: 2em;\n\tborder-top-right-radius: 2em;\n\tbackground-color: var(--clr-gray);\n\tz-index: 0;\n}\n"],"sourceRoot":""}]);
+  transition: bottom 0.3s ease-in-out;
+}
+
+.nav-active {
+  bottom: 0;
+}
+
+.header-burger-active {
+  transform: translateX(65%); /* Adjust as needed */
+}
+
+.header-btn-color {
+  background-color: var(--clr-light-gray);
+}
+
+.header-btn-last-color {
+  background-color: var(--clr-gray);
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}`, "",{"version":3,"sources":["webpack://./src/sass/_colors.scss","webpack://./src/sass/main.scss","webpack://./src/sass/_header.scss","webpack://./src/sass/_base.scss","webpack://./src/sass/_nav.scss","webpack://./src/sass/_styleControls.scss"],"names":[],"mappings":"AAAA;EACC,sBAAA;EACA,gBAAA;EACA,iBAAA;EACA,iBAAA;EACA,gCAAA;EACA,yBAAA;ACCD;;ACPA;EACC,eAAA;EACA,SAAA;EACA,OAAA;EACA,aAAA;EACA,mBAAA;EACA,6BAAA;EACA,QAAA;EACA,WAAA;EACA,YAAA;EACA,iCAAA;EACA,yCAAA;EACA,UAAA;ADUD;ACPC;EACC,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,YAAA;EACA,kBAAA;EACA,YAAA;EACA,gBAAA;ADSF;ACPE;EACC,cAAA;EACA,WAAA;EACA,eAAA;EACA,kBAAA;EACA,kCAAA;EACA,sCAAA;ADSH;ACNE;EACC,UAAA;EACA,eAAA;ADQH;ACJC;EACC,eAAA;EACA,eAAA;EACA,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,2BAAA;EACA,UAAA;EACA,6BAAA;EACA,oBAAA;ADMF;ACFC;EACC,kBAAA;EACA,oBAAA;EACA,6BAAA;EACA,6FAAA;ADIF;ACAC;EACC,uCAAA;ADEF;ACAE;EACC,4BAAA;ADEH;;ACGA;EACC,kBAAA;EACA,6CAAA;EACA,eAAA;EACA,iCAAA;ADAD;;ACGA;EACC,uCAAA;ADAD;;ACIA;EACC,uCAAA;ADDD;;AEjFA;EACC,sBAAA;EACA,SAAA;EACA,UAAA;AFoFD;;AEjFA;EACC,gBAAA;EACA,iCAAA;AFoFD;;AEjFA;EACC,kCAAA;AFoFD;;AEjFA;EACC,uBAAA;EACA,aAAA;EACA,eAAA;AFoFD;;AGtGA;EACC,eAAA;EACA,YAAA;EACA,OAAA;EAEA,WAAA;EACA,WAAA;EACA,2BAAA;EACA,4BAAA;EACA,iCAAA;EACA,UAAA;EACA,mCAAA;AHwGD;;AInHA;EACC,SAAA;AJsHD;;AInHA;EACC,0BAAA,EAAA,qBAAA;AJsHD;;AInHA;EACC,uCAAA;AJsHD;;AInHA;EACC,iCAAA;AJsHD;;AInHA;EACC,kBAAA;EACA,UAAA;AJsHD;;AInHA;EACC,yBAAA;AJsHD","sourcesContent":[":root {\n\t--clr-light-gray: #eee;\n\t--clr-gray: #ddd;\n\t--clr-white: #fff;\n\t--clr-black: #000;\n\t--clr-shadow: rgba(0, 0, 0, 0.6);\n\t--clr-light-blue: #468d99;\n}\n",":root {\n  --clr-light-gray: #eee;\n  --clr-gray: #ddd;\n  --clr-white: #fff;\n  --clr-black: #000;\n  --clr-shadow: rgba(0, 0, 0, 0.6);\n  --clr-light-blue: #468d99;\n}\n\n.header {\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-around;\n  gap: 1em;\n  width: 100%;\n  padding: 1em;\n  background-color: var(--clr-gray);\n  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);\n  z-index: 1;\n}\n.header-btn {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100px;\n  padding: 0.6em 1em;\n  border: none;\n  font-size: 1.9em;\n}\n.header-btn-burger {\n  height: 0.05em;\n  width: 100%;\n  max-width: 40px;\n  border-radius: 8px;\n  background-color: var(--clr-black);\n  transition: transform 0.3s ease-in-out;\n}\n.header-btn-burger:nth-child(2) {\n  width: 60%;\n  max-width: 20px;\n}\n.header-btn-container {\n  min-width: 30px;\n  max-width: 80px;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  justify-content: flex-start;\n  gap: 0.1em;\n  background-color: transparent;\n  pointer-events: none;\n}\n.header i {\n  position: absolute;\n  pointer-events: none;\n  background-color: transparent;\n  transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out, transform 0.3s ease-in-out;\n}\n.header-btn:last-child {\n  background-color: var(--clr-light-blue);\n}\n.header-btn:last-child i {\n  color: var(--clr-light-gray);\n}\n\n.header > * {\n  border-radius: 8px;\n  transition: background-color 0.2s ease-in-out;\n  cursor: pointer;\n  background-color: var(--clr-gray);\n}\n\n.header > *:hover {\n  background-color: var(--clr-light-gray);\n}\n\n.header > *:last-child:hover {\n  background-color: var(--clr-light-blue);\n}\n\n* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n\nhtml {\n  font-size: 62.5%;\n  font-family: \"Barlow\", sans-serif;\n}\n\nbody {\n  background-color: var(--clr-white);\n}\n\ndiv {\n  background-color: black;\n  color: yellow;\n  font-size: 5rem;\n}\n\n.nav {\n  position: fixed;\n  bottom: -40%;\n  left: 0;\n  height: 40%;\n  width: 100%;\n  border-top-left-radius: 2em;\n  border-top-right-radius: 2em;\n  background-color: var(--clr-gray);\n  z-index: 0;\n  transition: bottom 0.3s ease-in-out;\n}\n\n.nav-active {\n  bottom: 0;\n}\n\n.header-burger-active {\n  transform: translateX(65%); /* Adjust as needed */\n}\n\n.header-btn-color {\n  background-color: var(--clr-light-gray);\n}\n\n.header-btn-last-color {\n  background-color: var(--clr-gray);\n}\n\n.hidden {\n  visibility: hidden;\n  opacity: 0;\n}\n\n.rotate {\n  transform: rotate(180deg);\n}",".header {\n\tposition: fixed;\n\tbottom: 0;\n\tleft: 0;\n\tdisplay: flex;\n\tflex-direction: row;\n\tjustify-content: space-around;\n\tgap: 1em;\n\twidth: 100%;\n\tpadding: 1em;\n\tbackground-color: var(--clr-gray);\n\tbox-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);\n\tz-index: 1;\n\t// backdrop-filter: blur(4.1px);\n\n\t&-btn {\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\t\twidth: 100px;\n\t\tpadding: 0.6em 1em;\n\t\tborder: none;\n\t\tfont-size: 1.9em;\n\n\t\t&-burger {\n\t\t\theight: 0.05em;\n\t\t\twidth: 100%;\n\t\t\tmax-width: 40px;\n\t\t\tborder-radius: 8px;\n\t\t\tbackground-color: var(--clr-black);\n\t\t\ttransition: transform 0.3s ease-in-out;\n\t\t}\n\n\t\t&-burger:nth-child(2) {\n\t\t\twidth: 60%;\n\t\t\tmax-width: 20px;\n\t\t}\n\t}\n\n\t&-btn-container {\n\t\tmin-width: 30px;\n\t\tmax-width: 80px;\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\talign-items: flex-start;\n\t\tjustify-content: flex-start;\n\t\tgap: 0.1em;\n\t\tbackground-color: transparent;\n\t\tpointer-events: none;\n\t}\n\n\n\ti {\n\t\tposition: absolute;\n\t\tpointer-events: none;\n\t\tbackground-color: transparent;\n\t\ttransition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out,\n\t\t\ttransform 0.3s ease-in-out;\n\t}\n\n\t&-btn:last-child {\n\t\tbackground-color: var(--clr-light-blue);\n\n\t\ti {\n\t\t\tcolor: var(--clr-light-gray);\n\t\t}\n\t}\n}\n\n.header > * {\n\tborder-radius: 8px;\n\ttransition: background-color 0.2s ease-in-out;\n\tcursor: pointer;\n\tbackground-color: var(--clr-gray);\n}\n\n.header > *:hover {\n\tbackground-color: var(--clr-light-gray);\n\n}\n\n.header > *:last-child:hover {\n\tbackground-color: var(--clr-light-blue);\n}\n","* {\n\tbox-sizing: border-box;\n\tmargin: 0;\n\tpadding: 0;\n}\n\nhtml {\n\tfont-size: 62.5%;\n\tfont-family: 'Barlow', sans-serif;\n}\n\nbody {\n\tbackground-color: var(--clr-white);\n}\n\ndiv {\n\tbackground-color: black;\n\tcolor: yellow;\n\tfont-size: 5rem;\n}\n",".nav {\n\tposition: fixed;\n\tbottom: -40%;\n\tleft: 0;\n\t// height: 100dvh;\n\theight: 40%;\n\twidth: 100%;\n\tborder-top-left-radius: 2em;\n\tborder-top-right-radius: 2em;\n\tbackground-color: var(--clr-gray);\n\tz-index: 0;\n\ttransition: bottom 0.3s ease-in-out;\n}\n\n\n",".nav-active {\n\tbottom: 0;\n}\n\n.header-burger-active {\n\ttransform: translateX(65%); /* Adjust as needed */\n}\n\n.header-btn-color {\n\tbackground-color: var(--clr-light-gray);\n}\n\n.header-btn-last-color {\n\tbackground-color: var(--clr-gray);\n}\n\n.hidden {\n\tvisibility: hidden;\n\topacity: 0;\n}\n\n.rotate {\n\ttransform: rotate(180deg);\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -18051,12 +18286,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _sass_main_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sass/main.scss */ "./src/sass/main.scss");
-/* harmony import */ var _js_structure__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/structure */ "./src/js/structure.js");
-/* harmony import */ var _js_functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/functions */ "./src/js/functions.js");
+/* harmony import */ var _js_headerStructure__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/headerStructure */ "./src/js/headerStructure.js");
+/* harmony import */ var _js_headerControls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/headerControls */ "./src/js/headerControls.js");
+
+
+// import {header, nav, main, footer} from './js/structure';
+// import {createElement} from './js/functions';
 
 
 
+// INITIAL
+function initialize() {
+  (0,_js_headerStructure__WEBPACK_IMPORTED_MODULE_2__.headerStructure)();
+  (0,_js_headerControls__WEBPACK_IMPORTED_MODULE_3__.headerControl)();
+}
 
+//initialize();
+document.addEventListener('DOMContentLoaded', initialize);
 
 // function component() {
 // 	const element = document.createElement('div');
