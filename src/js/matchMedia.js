@@ -1,70 +1,74 @@
 import {headerStructure} from './headerStructure';
 import {headerControl, header} from './headerControls';
 
+// Define screen size queries
+const breakpoints = {
+	s: '(max-width: 639px)',
+	m: '(min-width: 640px) and (max-width: 767px)',
+	l: '(min-width: 768px) and (max-width: 1023px)',
+	xl: '(min-width: 1024px)',
+};
 
-// define screen size queries
-const sScreen = '(min-width: 640px)';
-const mScreen = '(min-width: 768px)';
-const lScreen = '(min-width: 1024px)';
-const xlScreen = '(min-width: 1280px)';
-
-// track the current screen size
+// Track the current breakpoint
 let currentBreakpoint = '';
 
-const handleScreenChange = (e) => {
-	let newBreakpoint;
-
-	if (window.matchMedia(xlScreen).matches) {
-		newBreakpoint = 'xl';
-	} else if (window.matchMedia(lScreen).matches) {
-		newBreakpoint = 'l';
-	} else if (window.matchMedia(mScreen).matches) {
-		newBreakpoint = 'm';
-	} else {
-		newBreakpoint = 's';
+// Determine the current breakpoint
+const getCurrentBreakpoint = () => {
+	for (const [key, query] of Object.entries(breakpoints)) {
+		if (window.matchMedia(query).matches) {
+			return key;
+		}
 	}
+	return 's'; // Default to 's' if no match
+};
 
-	// only run actions when the breakpoint has changed
+// Handle screen size changes
+const handleScreenChange = () => {
+	const newBreakpoint = getCurrentBreakpoint();
+
+	// Only run actions when the breakpoint has changed
 	if (newBreakpoint !== currentBreakpoint) {
 		currentBreakpoint = newBreakpoint;
 
-		// const headerElement = document.querySelector('.header');
 		if (header) {
+			// Clear header content if needed
 			header.innerHTML = '';
-		}
 
-		if (newBreakpoint === 's') {
-			console.log('sScreen is set');
-			header.style.display = 'flex';
-			headerStructure();
-			headerControl();
-		} else if (newBreakpoint === 'm') {
-			console.log('mScreen is set');
-			header.style.display = 'none';
-		} else if (newBreakpoint === 'l') {
-			console.log('lScreen is set');
-		} else if (newBreakpoint === 'xl') {
-			console.log('xl screen is set');
+			// Adjust header visibility based on current breakpoint
+			switch (newBreakpoint) {
+				case 'xl':
+					console.log('xlScreen is set');
+					break;
+				case 'l':
+					console.log('lScreen is set');
+					break;
+				case 'm':
+					console.log('mScreen is set');
+					header.style.display = 'none'; // Hide the header
+					break;
+				case 's':
+					console.log('sScreen is set');
+					header.style.display = 'flex'; // Show the header
+					headerStructure();
+					headerControl();
+					break;
+			}
 		}
 	}
 };
 
-// setup media query listeners
+// Set up media query listeners
 const setupListeners = () => {
-	const mediaQueries = [
-		window.matchMedia(sScreen),
-		window.matchMedia(mScreen),
-		window.matchMedia(lScreen),
-		window.matchMedia(xlScreen),
-	];
+	Object.values(breakpoints).forEach((query) => {
+		const mediaQueryList = window.matchMedia(query);
+		mediaQueryList.addEventListener('change', handleScreenChange);
+	});
 
-	mediaQueries.forEach((mq) =>
-		mq.addEventListener('change', handleScreenChange)
-	);
-
+	// Initial check to set up the correct state
 	handleScreenChange();
 };
 
+// Initialize
 setupListeners();
 
 export {handleScreenChange};
