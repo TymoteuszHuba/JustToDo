@@ -4,11 +4,13 @@ import './sass/main.scss';
 // import {createElement} from './js/functions';
 import {headerStructure} from './js/headerStructure';
 import {headerControl} from './js/headerControls';
+import {handleScreenChange} from './js/matchMedia';
 
 // INITIAL
 function initialize() {
-	headerStructure();
-	headerControl();
+	window.addEventListener('resize', handleScreenChange);
+	// window.addEventListener('resize', handleScreenChagne);
+	
 }
 
 //initialize();
