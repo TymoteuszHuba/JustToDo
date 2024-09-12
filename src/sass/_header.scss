@@ -7,9 +7,9 @@
 	justify-content: space-around;
 	gap: 1em;
 	width: 100%;
-	padding: 1em;
-	background-color: var(--clr-gray);
-	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	padding: 1.5em 1em;
+	background-color: var(--clr-black);
+	// box-shadow: 0 4px 30px rgba(255, 255, 255, 0.1);
 	z-index: 1;
 	// backdrop-filter: blur(4.1px);
 
@@ -17,17 +17,19 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 100px;
-		padding: 0.6em 1em;
-		border: none;
+		width: 6.25em;
+		height: auto;
+		padding: 0.5em 0;
+		border: 1px solid transparent;
 		font-size: 1.9em;
 
 		&-burger {
-			height: 0.05em;
+			height: 0.03em;
 			width: 100%;
-			max-width: 40px;
-			border-radius: 8px;
-			background-color: var(--clr-black);
+			max-width: 2.5em;
+			margin: 2px;
+			border-radius: 1.25em;
+			background-color: var(--clr-white);
 			transition: transform 0.3s ease-in-out;
 		}
 
@@ -49,11 +51,12 @@
 		pointer-events: none;
 	}
 
-
 	i {
 		position: absolute;
 		pointer-events: none;
 		background-color: transparent;
+		color: var(--clr-white);
+		// font-size: 2rem;
 		transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out,
 			transform 0.3s ease-in-out;
 	}
@@ -71,13 +74,12 @@
 	border-radius: 8px;
 	transition: background-color 0.2s ease-in-out;
 	cursor: pointer;
-	background-color: var(--clr-gray);
+	background-color: var(--clr-black);
 }
 
-.header > *:hover {
-	background-color: var(--clr-light-gray);
-
-}
+// .header > *:hover {
+// 	background-color: var(--clr-light-gray);
+// }
 
 .header > *:last-child:hover {
 	background-color: var(--clr-light-blue);

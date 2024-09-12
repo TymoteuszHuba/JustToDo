@@ -17,9 +17,9 @@ const navContents = {
 		{id: 'header-tasks-completed', text: 'Completed Tasks'},
 	],
 	'header-task-lists': [
-		{id: 'list1', text: 'List 1'},
-		{id: 'list2', text: 'List 2'},
-		{id: 'list3', text: 'List 3'},
+		{id: 'list1', text: 'Home'},
+		{id: 'list2', text: 'Work'},
+		{id: 'list3', text: 'Study'},
 	],
 	'header-task-calendar': [
 		{id: 'calendar1', text: 'Calendar Event 1'},
@@ -34,6 +34,11 @@ const createNavContent = (content, nav, headerBtns, headerBurgerItem) => {
 	// clear previous content
 	navContainer.innerHTML = '';
 
+	// if(btnId === 'add-task') {
+	// 	createAddTask();
+	// 	return;
+	// }
+
 	// creating ul element
 	const ul = document.createElement('ul');
 
@@ -41,6 +46,8 @@ const createNavContent = (content, nav, headerBtns, headerBurgerItem) => {
 	content.forEach((item) => {
 		const li = createElement('li');
 		const a = createElement('a', {href: '#', id: item.id}, item.text);
+		// setting class name
+		a.classList.add('nav-item');
 
 		// set listener on a tag to change the main content
 		a.addEventListener('click', (event) => {
@@ -57,6 +64,25 @@ const createNavContent = (content, nav, headerBtns, headerBurgerItem) => {
 
 	// add a ul list into main container
 	navContainer.appendChild(ul);
+};
+
+// function which create content for add task incl. input boxes, choose options etc.
+const createAddTask = () => {
+	navContainer.innerHTML = '';
+
+	const form = document.createElement('form', {class: 'add-task-form'});
+
+	const titleLabel = createElement('label', {for: 'task-title'}, 'Task Title');
+	const titleInput = createElement('input', {
+		type: 'text',
+		id: 'task-title',
+		name: 'task-title',
+		placeholder: 'Enter task title',
+		required: true,
+	});
+
+	form.appendChild(titleLabel);
+	form.appendChild(titleInput);
 };
 
 // function responsible for showing main content depends of a tag choose

@@ -31,7 +31,7 @@ const toggleIcons = (btn, showActive) => {
 // function responsible for reset values
 const resetButtons = (headerBtns, headerBurgerItem) => {
 	headerBtns.forEach((btn) => {
-		btn.classList.remove('header-btn-color');
+		btn.classList.remove('header-btn-border');
 		toggleIcons(btn, false);
 	});
 	headerBurgerItem.classList.remove('header-burger-active');
@@ -50,8 +50,8 @@ const headerControl = () => {
 	headerBtns.forEach((btn) => {
 		// add listener on each button
 		btn.addEventListener('click', (event) => {
-			// variable isActive working like a flag which checking if the button class contains a header-btn-color
-			const isActive = btn.classList.contains('header-btn-color');
+			// variable isActive working like a flag which checking if the button class contains a header-btn-border
+			const isActive = btn.classList.contains('header-btn-border');
 			// variable which take a clicked button id
 			const btnId = event.target.id;
 
@@ -67,12 +67,12 @@ const headerControl = () => {
 			// Reset all buttons and headerBurgerItem immediately
 			resetButtons(headerBtns, headerBurgerItem);
 
-			// checking if isActive include header-btn-color if TRUE, remove nav-active from nav
+			// checking if isActive include header-btn-border if TRUE, remove nav-active from nav
 			if (isActive) {
 				nav.classList.remove('nav-active');
 			} else {
 				// if FALSE add to btn class header-btn-clolor
-				btn.classList.add('header-btn-color');
+				btn.classList.add('header-btn-border');
 				// invoke toggleIcons which show different type of icons
 				toggleIcons(btn, true);
 				// incoke a function for special cases depends of btnId

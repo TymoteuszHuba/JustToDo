@@ -1,13 +1,14 @@
 .nav-active {
-	bottom: 0;
+	bottom: 68.5px;
 }
 
 .header-burger-active {
 	transform: translateX(65%); /* Adjust as needed */
 }
 
-.header-btn-color {
-	background-color: var(--clr-light-gray);
+.header-btn-border {
+	// background-color: var(--clr-light-gray);
+	border: 1px solid var(--clr-light-blue);
 }
 
 .header-btn-last-color {
