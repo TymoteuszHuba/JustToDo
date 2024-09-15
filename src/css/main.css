@@ -1,84 +1,11 @@
 :root {
   --clr-light-gray: #eee;
   --clr-gray: #ddd;
+  --clr-dark-gray: #bebebe;
   --clr-white: #fff;
   --clr-black: #000;
   --clr-shadow: rgba(0, 0, 0, 0.6);
   --clr-light-blue: #468d99;
-}
-
-.header {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  gap: 1em;
-  width: 100%;
-  padding: 1em;
-  background-color: var(--clr-gray);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-}
-.header-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100px;
-  padding: 0.6em 1em;
-  border: none;
-  font-size: 1.9em;
-}
-.header-btn-burger {
-  height: 0.05em;
-  width: 100%;
-  max-width: 40px;
-  border-radius: 8px;
-  background-color: var(--clr-black);
-  transition: transform 0.3s ease-in-out;
-}
-.header-btn-burger:nth-child(2) {
-  width: 60%;
-  max-width: 20px;
-}
-.header-btn-container {
-  min-width: 30px;
-  max-width: 80px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 0.1em;
-  background-color: transparent;
-  pointer-events: none;
-}
-.header i {
-  position: absolute;
-  pointer-events: none;
-  background-color: transparent;
-  transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
-.header-btn:last-child {
-  background-color: var(--clr-light-blue);
-}
-.header-btn:last-child i {
-  color: var(--clr-light-gray);
-}
-
-.header > * {
-  border-radius: 8px;
-  transition: background-color 0.2s ease-in-out;
-  cursor: pointer;
-  background-color: var(--clr-gray);
-}
-
-.header > *:hover {
-  background-color: var(--clr-light-gray);
-}
-
-.header > *:last-child:hover {
-  background-color: var(--clr-light-blue);
 }
 
 * {
@@ -89,53 +16,102 @@
 
 html {
   font-size: 62.5%;
-  font-family: "Barlow", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
   background-color: var(--clr-white);
 }
 
-div {
-  background-color: black;
-  color: yellow;
-  font-size: 5rem;
-}
-
-.nav {
-  position: fixed;
-  bottom: -40%;
-  left: 0;
-  height: 40%;
+.header-container {
   width: 100%;
-  border-top-left-radius: 2em;
-  border-top-right-radius: 2em;
+  height: 12em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
   background-color: var(--clr-gray);
-  z-index: 0;
-  transition: bottom 0.3s ease-in-out;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+.header-title {
+  font-size: 1.5rem;
+}
+.header-title h1 {
+  font-weight: 500;
+}
+.header-image {
+  width: 7.81em;
+  height: 7.81em;
+  border-radius: 50%;
+  object-position: center;
+  overflow: hidden;
+}
+.header-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.nav-active {
-  bottom: 0;
-}
-
-.header-burger-active {
-  transform: translateX(65%); /* Adjust as needed */
-}
-
-.header-btn-color {
-  background-color: var(--clr-light-gray);
-}
-
-.header-btn-last-color {
+.calendar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  margin: 1.25em 0;
+  padding: 1em 2em;
   background-color: var(--clr-gray);
+  border-radius: 20px;
+}
+.calendar-months {
+  display: flex;
+  justify-content: space-between;
+  overflow-x: auto;
+  white-space: nowrap;
+  background-color: transparent;
+}
+.calendar-days {
+  display: flex;
+  padding-bottom: 15px;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
-.hidden {
-  visibility: hidden;
-  opacity: 0;
+.month {
+  padding: 15px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
 }
 
-.rotate {
-  transform: rotate(180deg);
+.day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 50px;
+  margin: 0 10px;
+  padding: 15px;
+  background-color: var(--clr-dark-gray);
+  color: var(--clr-white);
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.current-month {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.current-day {
+  background-color: var(--clr-light-blue);
+}
+
+@media (min-width: 769px) {
+  .calendar-days {
+    flex-wrap: wrap; /* Wrap into two rows on larger screens */
+    justify-content: center;
+  }
+  .day {
+    margin: 1em;
+  }
 }/*# sourceMappingURL=main.css.map */

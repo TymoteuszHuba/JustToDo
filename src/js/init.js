@@ -1,2 +1,0 @@
-import {createStructure} from './structure';
-

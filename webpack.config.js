@@ -10,6 +10,7 @@ module.exports = {
 		filename: '[name].js',
 		path: path.resolve(__dirname, 'dist'),
         assetModuleFilename: '[name][ext]',
+		clean: true, // clean the dist folder vefore each build
 	},
 	// devtool for source map to control the errors
 	devtool: 'source-map',
@@ -18,11 +19,11 @@ module.exports = {
 		static: {
 			directory: path.resolve(__dirname, 'dist'),
 		},
-		port: 9090,
+		port: 3030,
 		open: true,
 		hot: true,
 		compress: true,
-		historyApiFallback: true,
+		//historyApiFallback: true,
 	},
 	// watch: true,
 	module: {

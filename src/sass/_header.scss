@@ -1,86 +1,36 @@
 .header {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	gap: 1em;
-	width: 100%;
-	padding: 1.5em 1em;
-	background-color: var(--clr-black);
-	// box-shadow: 0 4px 30px rgba(255, 255, 255, 0.1);
-	z-index: 1;
-	// backdrop-filter: blur(4.1px);
-
-	&-btn {
+	&-container {
+		width: 100%;
+		height: 12em;
 		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
 		align-items: center;
-		justify-content: center;
-		width: 6.25em;
-		height: auto;
-		padding: 0.5em 0;
-		border: 1px solid transparent;
-		font-size: 1.9em;
+		background-color: var(--clr-gray);
+		border-bottom-left-radius: 30px;
+		border-bottom-right-radius: 30px;
+	}
 
-		&-burger {
-			height: 0.03em;
+	&-title {
+		font-size: 1.5rem;
+		// letter-spacing: 0.2rem;
+
+		h1 {
+			font-weight: 500;
+		}
+	}
+
+	&-image {
+		width: 7.81em;
+		height: 7.81em;
+		border-radius: 50%;
+		object-position: center;
+		overflow: hidden;
+
+		img {
 			width: 100%;
-			max-width: 2.5em;
-			margin: 2px;
-			border-radius: 1.25em;
-			background-color: var(--clr-white);
-			transition: transform 0.3s ease-in-out;
-		}
-
-		&-burger:nth-child(2) {
-			width: 60%;
-			max-width: 20px;
+			height: 100%;
+			object-fit: cover;
 		}
 	}
-
-	&-btn-container {
-		min-width: 30px;
-		max-width: 80px;
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		justify-content: flex-start;
-		gap: 0.1em;
-		background-color: transparent;
-		pointer-events: none;
-	}
-
-	i {
-		position: absolute;
-		pointer-events: none;
-		background-color: transparent;
-		color: var(--clr-white);
-		// font-size: 2rem;
-		transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out,
-			transform 0.3s ease-in-out;
-	}
-
-	&-btn:last-child {
-		background-color: var(--clr-light-blue);
-
-		i {
-			color: var(--clr-light-gray);
-		}
-	}
-}
-
-.header > * {
-	border-radius: 8px;
-	transition: background-color 0.2s ease-in-out;
-	cursor: pointer;
-	background-color: var(--clr-black);
-}
-
-// .header > *:hover {
-// 	background-color: var(--clr-light-gray);
-// }
-
-.header > *:last-child:hover {
-	background-color: var(--clr-light-blue);
 }
