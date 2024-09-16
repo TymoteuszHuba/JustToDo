@@ -147,4 +147,37 @@ body {
 
 .fa-plus {
   font-size: 1.8em;
+}
+
+.nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.nav-container {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1em;
+  background-color: var(--clr-black);
+}
+.nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  padding: 1em;
+  border-radius: 10px;
+  background-color: var(--clr-white);
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+.nav-btn:nth-child(2) {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
 }/*# sourceMappingURL=main.css.map */

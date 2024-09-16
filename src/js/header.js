@@ -3,6 +3,7 @@ import headerImage from '../images/header-image.jpg';
 
 // get the header element from DOM
 const header = document.querySelector('header');
+header.classList.add('header');
 
 // Define an array with all elements for header
 const headerElements = [
