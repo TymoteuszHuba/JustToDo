@@ -55,10 +55,20 @@
 }
 
 @media (min-width: 769px) {
-	.calendar-days {
-		flex-wrap: wrap; /* Wrap into two rows on larger screens */
-		justify-content: center;
+	.calendar {
+		height: 200px;
+
+		&-months {
+			padding-bottom: 1em;
+		}
+
+		&-days {
+			flex-wrap: wrap; /* Wrap into two rows on larger screens */
+			justify-content: center;
+			padding-bottom: 0;
+		}
 	}
+
 	.day {
 		margin: 1em;
 	}
