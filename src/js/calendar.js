@@ -1,4 +1,15 @@
 import {addSeveral, createElements, createElement} from './functions';
+import {tasksList} from './nav';
+import {
+	getCurrentYear,
+	getCurrentMonth,
+	getCurrentDay,
+	getTasks,
+	setCurrentMonth,
+	setCurrentDay,
+	setCurrentYear,
+} from './state';
+import {addTaskDotToDay} from './utils';
 
 // get the main element from the web structure
 const main = document.querySelector('main');
@@ -25,8 +36,11 @@ const createCalendarElements = () => {
 	calendarContainer.append(monthsContainer, daysContainer);
 
 	// invoke functions which creates months and days
-	createCalendarDays(currentYear, currentMonth);
-	createCalendarMonths(currentYear, currentMonth);
+	// createCalendarDays(currentYear, currentMonth);
+	// createCalendarMonths(currentYear, currentMonth);
+
+	createCalendarMonths(getCurrentYear(), getCurrentMonth());
+	createCalendarDays(getCurrentYear(), getCurrentMonth(), getTasks());
 };
 
 // function which creates a calendar months elements
@@ -67,7 +81,7 @@ const createCalendarMonths = (year, currentMonth) => {
 };
 
 // function which creates calendar elements
-const createCalendarDays = (year, month) => {
+const createCalendarDays = (year, month, tasks = []) => {
 	// get the days container
 	const daysContainer = document.querySelector('.calendar-days');
 	// clean any existing days
@@ -98,8 +112,16 @@ const createCalendarDays = (year, month) => {
 
 	const dayElements = createElements(days);
 	addSeveral(dayElements, daysContainer);
+
+	// use the universal function to add dots for each task
+	if (tasks.length > 0) {
+		tasks.forEach(addTaskDotToDay);
+	}
+
+	handleDayClick();
 };
 
+// add click on each month
 const handleMonthClick = () => {
 	const monthsContainer = document.querySelector('.calendar-months');
 	const monthBtns = monthsContainer.querySelectorAll('.month');
@@ -108,11 +130,24 @@ const handleMonthClick = () => {
 		button.addEventListener('click', () => {
 			currentMonth = index;
 			// update the calendar days to reflect the new month
-			createCalendarDays(currentYear, currentMonth);
+			createCalendarDays(getCurrentYear(), currentMonth, getTasks());
 			// re-render the month buttons to highlight the selected month
-			createCalendarMonths(currentYear, currentMonth);
+			createCalendarMonths(getCurrentYear(), currentMonth);
 		});
 	});
 };
 
-export {createCalendarElements};
+const handleDayClick = () => {
+	const daysContainer = document.querySelector('.calendar-days');
+	const dayBtns = daysContainer.querySelectorAll('.day');
+
+	dayBtns.forEach((button, index) => {
+		button.addEventListener('click', () => {
+			currentDay = index + 1;
+
+			createCalendarDays(getCurrentYear(), currentMonth, getTasks());
+		});
+	});
+};
+
+export {createCalendarElements, createCalendarDays};
